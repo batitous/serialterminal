@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1130</width>
+    <height>712</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Serial Terminal</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/MainUi/Icon.png</normaloff>:/MainUi/Icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayoutHex">
+      <property name="spacing">
+       <number>-1</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <widget class="QPlainTextEdit" name="terminalOutputAsciiOnly">
+        <property name="font">
+         <font>
+          <family>Courier</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="documentTitle">
+         <string/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::NoTextInteraction</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPlainTextEdit" name="terminalOutputHex">
+        <property name="minimumSize">
+         <size>
+          <width>421</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>421</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Courier</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="plainText">
+         <string/>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::NoTextInteraction</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QScrollBar" name="verticalScrollBar">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPlainTextEdit" name="terminalOutputAscii">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>175</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>175</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Courier</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="plainText">
+         <string/>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::NoTextInteraction</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1130</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpenFrameProject"/>
+    <addaction name="actionSave_Input_Output"/>
+    <addaction name="actionSave_Terminal_Content"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionClear_log"/>
+    <addaction name="actionClear_Ascii_Hex_log"/>
+    <addaction name="actionClear_Ascii_log"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionControl_Status"/>
+    <addaction name="actionActivate_Control_Line"/>
+    <addaction name="separator"/>
+    <addaction name="actionOutput_Ascii"/>
+    <addaction name="actionOutput_Hex"/>
+    <addaction name="actionLog"/>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QDockWidget" name="dockOutputAscii">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>283</width>
+     <height>258</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Output Frame Ascii</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QListWidget" name="outputTable"/>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="addOutputFrame">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/MainUi/Add.png</normaloff>:/MainUi/Add.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteOutputFrame">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/MainUi/Delete.png</normaloff>:/MainUi/Delete.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sendOutputFrame">
+         <property name="text">
+          <string>Send</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="directAsciiText">
+         <property name="maximumSize">
+          <size>
+           <width>22</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="maxLength">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockOutputHex">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>370</width>
+     <height>258</height>
+    </size>
+   </property>
+   <property name="toolTip">
+    <string>Output</string>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllDockWidgetAreas</set>
+   </property>
+   <property name="windowTitle">
+    <string>Output frame Hex</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_1">
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QListWidget" name="outputTableHex"/>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="addOutputFrameHex">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/MainUi/Add.png</normaloff>:/MainUi/Add.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteOutputFrameHex">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/MainUi/Delete.png</normaloff>:/MainUi/Delete.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sendOutputFrameHex">
+         <property name="text">
+          <string>Send</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="directHexText">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="maxLength">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="SaveToolBar">
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSaveInputOutput"/>
+   <addaction name="actionSaveTerminalContent"/>
+  </widget>
+  <widget class="QToolBar" name="ControlToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSetDTR"/>
+   <addaction name="actionSetRTS"/>
+   <addaction name="actionIsDSR"/>
+   <addaction name="actionIsCTS"/>
+   <addaction name="actionIsDCD"/>
+   <addaction name="actionIsRNG"/>
+  </widget>
+  <widget class="QDockWidget" name="dockLog">
+   <property name="windowTitle">
+    <string>Log</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPlainTextEdit" name="logText">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/Quit.png</normaloff>:/MainUi/Quit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="statusTip">
+    <string>Quit</string>
+   </property>
+   <property name="whatsThis">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/About.png</normaloff>:/MainUi/About.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="statusTip">
+    <string>About</string>
+   </property>
+   <property name="whatsThis">
+    <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+A</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionSaveInputOutput">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/SaveInputOutput.png</normaloff>:/MainUi/SaveInputOutput.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionSaveInputOutput</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Input/Output</string>
+   </property>
+   <property name="statusTip">
+    <string>Save Input/Output</string>
+   </property>
+   <property name="whatsThis">
+    <string>Save Input/Output</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSaveTerminalContent">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/SaveTerminalContent.png</normaloff>:/MainUi/SaveTerminalContent.png</iconset>
+   </property>
+   <property name="text">
+    <string>saveTerminalContent</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="statusTip">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="whatsThis">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionSave_Input_Output">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/SaveInputOutput.png</normaloff>:/MainUi/SaveInputOutput.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save frame project</string>
+   </property>
+   <property name="statusTip">
+    <string>Save Input/Output</string>
+   </property>
+   <property name="whatsThis">
+    <string>Save Input/Output</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_Terminal_Content">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/SaveTerminalContent.png</normaloff>:/MainUi/SaveTerminalContent.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="statusTip">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="whatsThis">
+    <string>Save Terminal Content</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionSetDTR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/DTR_R.png</normaloff>:/MainUi/DTR_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionSetDTR</string>
+   </property>
+   <property name="toolTip">
+    <string>Set DTS</string>
+   </property>
+   <property name="statusTip">
+    <string>Set DTS</string>
+   </property>
+   <property name="whatsThis">
+    <string>Set DTS</string>
+   </property>
+  </action>
+  <action name="actionSetRTS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/RTS_R.png</normaloff>:/MainUi/RTS_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionSetRTS</string>
+   </property>
+   <property name="toolTip">
+    <string>Set RTS</string>
+   </property>
+   <property name="statusTip">
+    <string>Set RTS</string>
+   </property>
+   <property name="whatsThis">
+    <string>Set RTS</string>
+   </property>
+  </action>
+  <action name="actionIsDSR">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/DSR_R.png</normaloff>:/MainUi/DSR_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionIsDSR</string>
+   </property>
+   <property name="toolTip">
+    <string>DSR</string>
+   </property>
+   <property name="statusTip">
+    <string>DSR</string>
+   </property>
+   <property name="whatsThis">
+    <string>DSR</string>
+   </property>
+  </action>
+  <action name="actionIsCTS">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/CTS_R.png</normaloff>:/MainUi/CTS_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionIsCTS</string>
+   </property>
+   <property name="toolTip">
+    <string>CTS</string>
+   </property>
+   <property name="statusTip">
+    <string>CTS</string>
+   </property>
+   <property name="whatsThis">
+    <string>CTS</string>
+   </property>
+  </action>
+  <action name="actionIsDCD">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/DCD_R.png</normaloff>:/MainUi/DCD_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionIsDCD</string>
+   </property>
+   <property name="toolTip">
+    <string>DCD</string>
+   </property>
+   <property name="statusTip">
+    <string>DCD</string>
+   </property>
+   <property name="whatsThis">
+    <string>DCD</string>
+   </property>
+  </action>
+  <action name="actionIsRNG">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/MainUi/RNG_R.png</normaloff>:/MainUi/RNG_R.png</iconset>
+   </property>
+   <property name="text">
+    <string>actionIsRNG</string>
+   </property>
+   <property name="toolTip">
+    <string>RNG</string>
+   </property>
+   <property name="statusTip">
+    <string>RNG</string>
+   </property>
+   <property name="whatsThis">
+    <string>RNG</string>
+   </property>
+  </action>
+  <action name="actionClear_log">
+   <property name="text">
+    <string>Clear log</string>
+   </property>
+  </action>
+  <action name="actionClear_Ascii_Hex_log">
+   <property name="text">
+    <string>Clear Ascii/Hex log</string>
+   </property>
+  </action>
+  <action name="actionClear_Ascii_log">
+   <property name="text">
+    <string>Clear Ascii log</string>
+   </property>
+  </action>
+  <action name="actionControl_Status">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Control Status</string>
+   </property>
+  </action>
+  <action name="actionOutput_Ascii">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Output Ascii</string>
+   </property>
+  </action>
+  <action name="actionOutput_Hex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Output Hex</string>
+   </property>
+  </action>
+  <action name="actionLog">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Log</string>
+   </property>
+  </action>
+  <action name="actionOpenFrameProject">
+   <property name="text">
+    <string>Open frame project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionActivate_Control_Line">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Activate Control Line Status</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

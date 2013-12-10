@@ -1,4 +1,5 @@
-serialterminal
-==============
+Serial Terminal
+===============
 
-A simple UART Terminal in Qt for debugging embedded electronic
+A simple UART Terminal in Qt for debugging embedded electronic.
+

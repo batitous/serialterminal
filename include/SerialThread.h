@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013 Baptiste Burles, Sylvain Fay-Chatelard
@@ -18,3 +19,35 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+#ifndef SERIALTHREAD_H
+#define SERIALTHREAD_H
+
+#include <QThread>
+#include <babcode.h>
+
+
+class SerialThread : public QThread
+{
+    Q_OBJECT
+public:
+    SerialThread(UInt8* pBuffer, UInt32 pSize);
+
+    bool stop();
+    void setActiveControlLine(bool a);
+
+signals:
+    void charReceived(int,int);
+     void controlState(bool,bool,bool,bool,bool,bool);
+protected:
+    void run();
+
+private:
+    UInt8*  mBuffer;
+    UInt32  mBufferSize;
+    bool    mRun;
+    bool    mActiveControlLine;
+    bool    mStopped;
+};
+
+#endif // SERIALTHREAD_H

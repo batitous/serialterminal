@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/AboutUi">
+        <file>splash.jpg</file>
+    </qresource>
+    <qresource prefix="/MainUi">
+        <file>Icon.png</file>
+        <file>SaveInputOutput.png</file>
+        <file>SaveTerminalContent.png</file>
+        <file>About.png</file>
+        <file>Preference.png</file>
+        <file>Quit.png</file>
+        <file>Start.png</file>
+        <file>Ascii.png</file>
+        <file>Hex.png</file>
+        <file>Stop.png</file>
+        <file>Add.png</file>
+        <file>Delete.png</file>
+        <file>DSR_R.png</file>
+        <file>CTS_R.png</file>
+        <file>CTS_V.png</file>
+        <file>DCD_R.png</file>
+        <file>DCD_V.png</file>
+        <file>DSR_V.png</file>
+        <file>DTR_R.png</file>
+        <file>DTR_V.png</file>
+        <file>RNG_R.png</file>
+        <file>RNG_V.png</file>
+        <file>RTS_R.png</file>
+        <file>RTS_V.png</file>
+    </qresource>
+</RCC>
