@@ -243,17 +243,13 @@ int Utils::setPortComList(QComboBox *portCombo)
          portCombo->clear();
 
          //Insert serial port ont the combo box
+         portCombo->setCurrentIndex(-1);
          for(int i=0; i < listPorts.size() ; i++)
          {
              portCombo->insertItem(i,listPorts[i]);
-             portCombo->setCurrentIndex(i);
-             if(comport==listPorts[i])
+             if(comport == listPorts[i])
              {
                  portCombo->setCurrentIndex(i);
-             }
-             else
-             {
-                 portCombo->setCurrentIndex(-1);
              }
            }//..for
      }//..else
