@@ -84,7 +84,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     mSerialPort = new QComboBox;
     Utils::setPortComList(mSerialPort);
-    mSerialPort->setCurrentIndex(0);
+    // Setup by setPortComList
+    //mSerialPort->setCurrentIndex(0);
 
     mBaudrate = new QComboBox;
     QStringList baudrate;
@@ -463,6 +464,8 @@ void MainWindow::eventSaveTerminalContent()
 
 void MainWindow::eventSerialPort()
 {
+    Settings::setPortCom(mSerialPort->currentText());
+
     restartCommunication();
 }
 
@@ -567,6 +570,9 @@ void MainWindow::eventDataReceived(int pStartPosition,int pStopPosition)
 {
     if(pStopPosition>pStartPosition)
     {
+        int scrollDiff = ui->terminalOutputAsciiOnly->verticalScrollBar()->maximum() - ui->terminalOutputAsciiOnly->verticalScrollBar()->value();
+        bool lockScroll = (scrollDiff < 2);
+
         temp.clear();
         asciiOriginalBuffer.clear();
 
@@ -575,7 +581,7 @@ void MainWindow::eventDataReceived(int pStartPosition,int pStopPosition)
         ui->terminalOutputAsciiOnly->insertPlainText(asciiOriginalBuffer);
         ui->terminalOutputAscii->insertPlainText(temp);
         ui->terminalOutputHex->insertPlainText(hexBuffer);
-        ui->terminalOutputAsciiOnly->centerCursor();
+        if  (lockScroll) ui->terminalOutputAsciiOnly->centerCursor();
         ui->terminalOutputAscii->centerCursor();
         ui->terminalOutputHex->centerCursor();
     }
