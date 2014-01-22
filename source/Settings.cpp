@@ -24,103 +24,103 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <QFileInfo>
 
-QSettings *		Settings::settings = new QSettings( 
-	QSettings::NativeFormat, QSettings::UserScope,
-        "Kliplab","SerialTerminal"
-	);
+QSettings *		Settings::settings = new QSettings(
+            QSettings::NativeFormat, QSettings::UserScope,
+            "Kliplab","SerialTerminal"
+            );
 
 void Settings::setFirstStart(bool pIsFirstStart)
 {
-        settings->setValue("IsFirstStart",pIsFirstStart);
+    settings->setValue("IsFirstStart",pIsFirstStart);
 }
 
 bool Settings::getFirstStart()
 {
-        return settings->value("IsFirstStart").toBool();
+    return settings->value("IsFirstStart").toBool();
 }
 
 void Settings::setLogStatus(bool pHide)
 {
-        settings->setValue("LogStatus",pHide);
+    settings->setValue("LogStatus",pHide);
 }
 
 bool Settings::getLogStatus()
 {
-        return settings->value("LogStatus").toBool();
+    return settings->value("LogStatus").toBool();
 }
 
 void Settings::setOutputAsciiStatus(bool pHide)
 {
-        settings->setValue("AsciiStatus",pHide);
+    settings->setValue("AsciiStatus",pHide);
 }
 
 bool Settings::getOutputAsciiStatus()
 {
-        return settings->value("AsciiStatus").toBool();
+    return settings->value("AsciiStatus").toBool();
 }
 
 void Settings::setOutputHexStatus(bool pHide)
 {
-        settings->setValue("HexStatus",pHide);
+    settings->setValue("HexStatus",pHide);
 }
 
 bool Settings::getOutputHexStatus()
 {
-        return settings->value("HexStatus").toBool();
+    return settings->value("HexStatus").toBool();
 }
 
 void Settings::setControlStatus(bool pHide)
 {
-        settings->setValue("ControlStatus",pHide);
+    settings->setValue("ControlStatus",pHide);
 }
 
 bool Settings::getControlStatus()
 {
-        return settings->value("ControlStatus").toBool();
+    return settings->value("ControlStatus").toBool();
 }
 
 QString Settings::getPortCom()
 {
-	return settings->value("COM").toString();
+    return settings->value("COM").toString();
 }
 
 void Settings::setPortCom(QString portcom)
 {
-        settings->setValue("COM", QVariant(portcom));
+    settings->setValue("COM", QVariant(portcom));
 }
 
 void Settings::setTerminalStatus(bool pHide)
 {
-        settings->setValue("TerminalStatus",pHide);
+    settings->setValue("TerminalStatus",pHide);
 }
 
 bool Settings::getTerminalStatus()
 {
-        return settings->value("TerminalStatus").toBool();
+    return settings->value("TerminalStatus").toBool();
 }
 
 void Settings::setProjectPath(QString path)
 {
-        settings->setValue("ProjectPath",path);
+    settings->setValue("ProjectPath",path);
 }
 
 QString Settings::getProjectPath()
 {
-        return settings->value("ProjectPath").toString();
+    return settings->value("ProjectPath").toString();
 }
 
 void Settings::setWindowSize(int x, int y, int width,int height)
 {
-        settings->setValue("WindowX", x);
-        settings->setValue("WindowY", y);
-        settings->setValue("WindowHeight", height);
-        settings->setValue("WindowWidth", width);
+    settings->setValue("WindowX", x);
+    settings->setValue("WindowY", y);
+    settings->setValue("WindowHeight", height);
+    settings->setValue("WindowWidth", width);
 }
 
 void Settings::getWindowSize(int* x, int* y, int* width, int* height)
 {
-        *x = settings->value("WindowX").toInt();
-        *y = settings->value("WindowY").toInt();
-        *height = settings->value("WindowHeight").toInt();
-        *width = settings->value("WindowWidth").toInt();
+    *x = settings->value("WindowX").toInt();
+    *y = settings->value("WindowY").toInt();
+    *height = settings->value("WindowHeight").toInt();
+    *width = settings->value("WindowWidth").toInt();
 }
