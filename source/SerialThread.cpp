@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "../include/SerialThread.h"
 
-SerialThread::SerialThread(UInt8 *pBuffer, UInt32 pSize)
+SerialThread::SerialThread(uint8_t *pBuffer, uint32_t pSize)
 {
     mBuffer = pBuffer;
     mBufferSize = pSize;
@@ -47,11 +47,11 @@ void SerialThread::run()
     mRun = true;
     mStopped = false;
 
-    UInt8 data;
-    UInt32 t;
-    UInt32 end;
-    UInt32 iterator = 0;
-    UInt32 iteratorGui = 0;
+    uint8_t data;
+    uint32_t t;
+    uint32_t end;
+    uint32_t iterator = 0;
+    uint32_t iteratorGui = 0;
 
     while ( mRun == true )
     {

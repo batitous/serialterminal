@@ -31,7 +31,7 @@ class SerialThread : public QThread
 {
     Q_OBJECT
 public:
-    SerialThread(UInt8* pBuffer, UInt32 pSize);
+    SerialThread(uint8_t* pBuffer, uint32_t pSize);
 
     bool stop();
     void setActiveControlLine(bool a);
@@ -43,8 +43,8 @@ protected:
     void run();
 
 private:
-    UInt8*  mBuffer;
-    UInt32  mBufferSize;
+    uint8_t*  mBuffer;
+    uint32_t  mBufferSize;
     bool    mRun;
     bool    mActiveControlLine;
     bool    mStopped;

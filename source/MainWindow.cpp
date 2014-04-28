@@ -218,7 +218,7 @@ void MainWindow::setStartStopButton(QString text, QIcon & icon)
 
 bool MainWindow::startCommunication()
 {
-    if (initUART((unsigned char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
+    if (initUART((char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
     {
         QMessageBox::critical(this, tr("Open failed"),tr("Failed, an error occured during opening serial port..."));
         return false;
@@ -237,7 +237,7 @@ void MainWindow::stopCommunication()
     disconnect( mSerialThread, SIGNAL(controlState(bool,bool,bool,bool,bool,bool)),0,0);
     disconnect( mSerialThread, SIGNAL(charReceived(int,int)),0,0);
 
-    UInt32 counter = 10;
+    uint32_t counter = 10;
     while (mSerialThread->stop() == false)
     {
         counter--;
@@ -489,7 +489,7 @@ void MainWindow::restartCommunication()
 
         closeUART();
 
-        if ( initUART((unsigned char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
+        if ( initUART((char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
         {
             QMessageBox::critical(this, tr("Open failed"),tr("Failed, an error occured during opening serial port..."));
 
