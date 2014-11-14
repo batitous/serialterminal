@@ -36,6 +36,7 @@ public:
     bool stop();
     void setActiveControlLine(bool a);
 
+    static Uart uart;
 signals:
     void charReceived(int,int);
      void controlState(bool,bool,bool,bool,bool,bool);

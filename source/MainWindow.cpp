@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     mAbout = new AboutUi(this);
 
     threadBuffer = (unsigned char*) malloc(BUFFER_SIZE);
-    hexBuffer = (char*) malloc(4000);
+    hexBuffer = (char*) malloc(BUFFER_SIZE);
 
     mSerialThread = new SerialThread(threadBuffer,BUFFER_SIZE);
 
@@ -218,7 +218,7 @@ void MainWindow::setStartStopButton(QString text, QIcon & icon)
 
 bool MainWindow::startCommunication()
 {
-    if (initUART((char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
+    if (initUART(&SerialThread::uart, (char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
     {
         QMessageBox::critical(this, tr("Open failed"),tr("Failed, an error occured during opening serial port..."));
         return false;
@@ -248,7 +248,7 @@ void MainWindow::stopCommunication()
         waitMs(200);
     }
 
-    closeUART();
+    closeUART(&SerialThread::uart);
 }
 
 void MainWindow::eventQuit()
@@ -487,9 +487,9 @@ void MainWindow::restartCommunication()
             waitMs(500);
         }
 
-        closeUART();
+        closeUART(&SerialThread::uart);
 
-        if ( initUART((char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
+        if ( initUART(&SerialThread::uart, (char*)mSerialPort->currentText().toLocal8Bit().constData(),mBaudrate->currentText().toInt())!=UART_OK)
         {
             QMessageBox::critical(this, tr("Open failed"),tr("Failed, an error occured during opening serial port..."));
 
@@ -648,7 +648,7 @@ void MainWindow::eventSendOutputFrame()
 {
     if (ui->outputTable->currentRow()>-1)
     {
-        if (sendBufferToUART((unsigned char*)ui->outputTable->currentItem()->text().toLocal8Bit().constData(),
+        if (sendBufferToUART(&SerialThread::uart, (unsigned char*)ui->outputTable->currentItem()->text().toLocal8Bit().constData(),
                          (unsigned int)ui->outputTable->currentItem()->text().toLocal8Bit().size())!=0)
         {
             ui->logText->appendPlainText("Failed to send");
@@ -726,7 +726,7 @@ void MainWindow::eventSendOutputFrameHex()
             hexToBin(hex,&result[j]);
             j++;
         }
-        if (sendBufferToUART(result,((unsigned int)ui->outputTableHex->currentItem()->text().size()/2))!=UART_OK)
+        if (sendBufferToUART(&SerialThread::uart, result,((unsigned int)ui->outputTableHex->currentItem()->text().size()/2))!=UART_OK)
         {
             ui->logText->appendPlainText("Failed to send hexadecimal frame");
             qDebug()<<"ERROR";
@@ -765,7 +765,7 @@ void MainWindow::eventDirectAsciiChanged(QString pText)
 {
     if (pText.size()==1)
     {
-        if (sendByteToUART((unsigned char)pText[0].toLatin1())!=UART_OK)
+        if (sendByteToUART(&SerialThread::uart, (unsigned char)pText[0].toLatin1())!=UART_OK)
         {
             ui->logText->appendPlainText("Failed to send byte");
             return;
@@ -783,7 +783,7 @@ void MainWindow::eventDirectHexChanged(QString pText)
         if (checkHexValue(pText) == true)
         {
             hexToBin((unsigned char*)pText.toLocal8Bit().constData(),result);
-            if (sendByteToUART(result[0])!=UART_OK)
+            if (sendByteToUART(&SerialThread::uart, result[0])!=UART_OK)
             {
                 ui->logText->appendPlainText("Failed to send hexadecimal byte");
                 return;
@@ -829,12 +829,12 @@ void MainWindow::eventSetDTR(bool pState)
     if (pState == true)
     {
         icon = *iconDTR_V;
-        UARTSetDTR();
+        UARTSetDTR(&SerialThread::uart);
     }
     else
     {
         icon= *iconDTR_R;
-        UARTClearDTR();
+        UARTClearDTR(&SerialThread::uart);
     }
     ui->actionSetDTR->setIcon(icon);
 }
@@ -845,12 +845,12 @@ void MainWindow::eventSetRTS(bool pState)
     if (pState == true)
     {
         icon = *iconRTS_V;
-        UARTSetRTS();
+        UARTSetRTS(&SerialThread::uart);
     }
     else
     {
         icon = *iconRTS_R;
-        UARTClearRTS();
+        UARTClearRTS(&SerialThread::uart);
     }
     ui->actionSetRTS->setIcon(icon);
 }

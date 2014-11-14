@@ -24,6 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "../include/SerialThread.h"
 
+
+Uart SerialThread::uart;
+
 SerialThread::SerialThread(uint8_t *pBuffer, uint32_t pSize)
 {
     mBuffer = pBuffer;
@@ -60,7 +63,7 @@ void SerialThread::run()
 
         while ( t < end)
         {
-            if ( getByteFromUARTNoWait(&data) == UART_OK)
+            if ( getByteFromUARTNoWait(&uart, &data) == UART_OK)
             {
                 mBuffer[iterator] = data;
                 iterator++;
@@ -80,7 +83,7 @@ void SerialThread::run()
 
         if (mActiveControlLine==true)
         {
-            emit controlState(UARTisDSRset(),UARTisDTRset(),UARTisRTSset(),UARTisCTSset(),UARTisDCDset(),UARTisRNGset());
+            emit controlState(UARTisDSRset(&uart),UARTisDTRset(&uart),UARTisRTSset(&uart),UARTisCTSset(&uart),UARTisDCDset(&uart),UARTisRNGset(&uart));
         }
 
         if (iteratorGui != iterator)
